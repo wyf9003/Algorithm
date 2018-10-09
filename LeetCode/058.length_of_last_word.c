@@ -19,35 +19,32 @@ void main()
 
 int lengthOfLastWord(char* s) 
 {
-    int len = 0;
-	int space_l = -1;
+    int num = 0;
+	int temp = 0;
 	if(s != NULL)
 	{
-		while(*(s+len) != '\0')
+		while(*s != '\0')
 		{
-			if(*(s+len) == ' ')
+			if(*s == ' ')
 			{
-				space_l = len;
-				printf("%d\n", space_l);
-			}	
-			len++;
+				if(num != 0)
+				{
+					temp = num;
+				}
+				num = 0;
+			}
+			else
+			{
+				num ++;
+			}
+			s++;
 		}
 	}
-	
-	printf("%d\n", len);
-	if(len == 0)
+	if(num == 0)
 	{
-		return 0;
+		num = temp;
 	}
-	if(space_l != -1)
-	{
-		return len-space_l;
-	}
-	if(space_l == -1)
-	{
-		return len;
-	}
-	
+	return num;
 }
 
 
