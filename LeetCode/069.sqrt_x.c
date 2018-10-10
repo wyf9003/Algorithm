@@ -6,20 +6,45 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <math.h>
 
 int mySqrt(int x);
 
 void main()
 {
-	int x= 10;
+	int x= 2147483647;
 	
 	printf("%d\n", mySqrt(x));
 }
 
 int mySqrt(int x) 
 {
-    int result = (int)sqrt((double)x);
-    printf("%lf ", result);
+	if(x == 0)
+	{
+		return 0;
+	}
+	if(x < 4)
+	{
+		return 1;
+	}
+	
+	int middle = x/2+2;
+	int i = 0;
+	int result = 0;
+	for(i=0; i<middle; i++)
+	{
+		long long square = (long long )i*(long long)i;
+		if(square > (long long)x)
+		{
+			printf("%d\n", i);
+			result = i-1;
+			break;
+		}
+		else if(square == x)
+		{
+			result = i;
+			break;
+		}			
+	}
 	return result;
+	
 }
