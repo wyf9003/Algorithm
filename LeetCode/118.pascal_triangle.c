@@ -10,33 +10,55 @@ int** generate(int numRows, int** columnSizes);
 
 void main()
 {
-	generate();
+	int* columnSizes = NULL;
+	int** pascal = generate(1, &columnSizes);
+	int i = 0, j=0;
+	for(i=0; i<1; i++)
+	{
+		printf("%d:", columnSizes[i]);
+		for(j=0; j<columnSizes[i]; j++)
+		{
+			printf("%d ", *(*(pascal+i)+j));
+		}
+		printf("\n");
+	}
 	printf("hello world\n");
 }
 
 int** generate(int numRows, int** columnSizes) 
 {
+	if(numRows == 0)
+    {
+        return NULL;
+    }
+	
 	int** pascal = (int**)malloc(numRows*sizeof(int*));
 	int i = 0;
 	for(i=0; i<numRows; i++)
 	{
-		*(pascal+i) = malloc((i+1)*sizeof(int));	
+		*(pascal+i) = (int*)malloc((i+1)*sizeof(int));
+		memset(*(pascal+i), 0, (i+1)*sizeof(int));
 	}
 	
     *columnSizes = (int*)malloc(numRows*sizeof(int));
-	**pascal = 1;
-	*(*pascal+1) = 1;
-	*((*pascal+1)+1) = 1;
-	columnSizes[0] = 1;
-	columnSizes[1] = 2;
+	memset(*columnSizes, 0, numRows*sizeof(int));
+	*(*pascal) = 1;
+	*(*columnSizes) = 1;
 	
-	int j = 1;
-	for(i=2; i<numRows; i++)
+	printf("check\n");
+
+	for(i=1; i<numRows; i++)
 	{
-		for(j=1; j<numRows-1; j++)
+		int j = 1;
+		*(*(pascal+i)) = 1;
+		for(j=1; j<i; j++)
 		{
-			*((*pascal+i)+j) = *((*pascal+i-1)+j-1)+*((*pascal+i-1)+j+1)
+			*(*(pascal+i)+j) = *(*(pascal+i-1)+j-1)+*(*(pascal+i-1)+j);
 		}
-		columnSizes[i] = i+1;
+		*(*(pascal+i)+j) = 1;
+		*(*columnSizes+i) = i+1;
 	}
+	return pascal;
 }
+
+
