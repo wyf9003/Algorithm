@@ -23,7 +23,7 @@ char* convertToTitle(int n)
 
     while(n != 0)
     {
-		// 注意这个--n
+		// 注意这个--n，
         *(str+i) = (--n)%26+'A';
         n = n/26;
         i++;
